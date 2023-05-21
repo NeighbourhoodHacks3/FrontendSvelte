@@ -7,7 +7,6 @@
 
 <header>
 	<NavBar />
-
 </header>
 
 <style>
