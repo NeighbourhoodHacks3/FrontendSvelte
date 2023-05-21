@@ -9,20 +9,44 @@
 </svelte:head>
 
 <section>
-	<h1>
+	<!--
+	<h1 style="font-style: italic; font-weight:bold">
 		<span class="welcome">
 			<picture>
 				<source srcset={welcome} type="image/webp" />
 				<img src={welcome_fallback} alt="Welcome" />
 			</picture>
 		</span>
+	</h1>-->
 
-		to your new<br />SvelteKit app
-	</h1>
+	<img src="../images/icon.png" alt="display icon">
 
-	<h2>
+	<br><br>
+
+    <form action="/" method="post">
+      <div style="font-size: 25px;">
+        <label for="userId">User ID</label>
+        <input type="text" id="userId" name="userId" style="height: 25px; font-size: 22px;">
+      </div>
+  
+      <div style="margin: 10px;"></div>
+  
+      <div style="font-size: 25px;">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" style="height: 25px; font-size: 22px;">
+      </div>
+    </form>
+
+	<!--<h2>
 		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
+	</h2>-->
+
+	<br>
+
+	<nav>
+		<a style="font-size: 20px;" href="/profile">create new user</a><br><br>
+	</nav>
+
 </section>
 
 <style>
