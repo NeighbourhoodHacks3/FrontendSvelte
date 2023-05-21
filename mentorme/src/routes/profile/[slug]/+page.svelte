@@ -15,16 +15,10 @@
 		username: ''
 	};
 
-	onMount(() => {
-		console.log(data);
-	});
-
 	onMount(async () => {
 		// Make the API Call here
 		// @ts-ignore
 		res = await getUserData(data.userID);
-
-		console.log(res);
 	});
 </script>
 
@@ -38,14 +32,14 @@
 
 <svelte:head>
 	<title>Profile</title>
-	<meta name="description" content="View Offers from Mentors" />
+	<meta name="description" content="Profle page" />
 </svelte:head>
 
 <div class="text-column">
-	<h1>Profile: res.username</h1>
+	<h1>Profile: {res.username}</h1>
 
 	<p>
-		User ID: {data.userID}
+		User ID: {res._id}
 	</p>
 
 	<!-- Use data from the API call here -->
@@ -63,7 +57,6 @@
 				</ListGroupItem>
 			{/each}
 		</ListGroup>
-			
 	</div>
 
 </div>

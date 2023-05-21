@@ -1,12 +1,5 @@
-<svelte:head>
-	<title>Mentor's Offers</title>
-	<meta name="description" content="View Offers from Mentors" />
-</svelte:head>
+<!-- Redirect to users profile -->
+<script lang="ts">
+	
 
-<div class="text-column">
-	<h1>Mentors's Offers</h1>
-
-	<p>
-		Placeholder Mentors
-	</p>
-</div>
+</script>

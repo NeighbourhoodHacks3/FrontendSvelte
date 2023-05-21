@@ -14,6 +14,8 @@ export const getUserData = async ( /** @type {string} */ userID ) => {
                     userID: userID
                 }
             });
+
+        return res.data;
         }
     catch (err) {
         console.log(err);

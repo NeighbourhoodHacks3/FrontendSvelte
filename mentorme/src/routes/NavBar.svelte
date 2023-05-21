@@ -48,9 +48,14 @@
 							<!-- <NavLink href="/profile/">View profile</NavLink> -->
 							<NavLink href="/profile/{$currentUser.userID}">View profile</NavLink>
 						</DropdownItem>
-						<DropdownItem>Update profile</DropdownItem>
+						<DropdownItem>
+							<!-- <NavLink href="/profile/">View profile</NavLink> -->
+							<NavLink href="/profile/update/">Update profile</NavLink>
+						</DropdownItem>
 						<DropdownItem divider />
-						<DropdownItem>Log out</DropdownItem>
+						<DropdownItem>
+							<NavLink href="/logout">Log Out</NavLink>
+						</DropdownItem>
 					</DropdownMenu>
 				</Dropdown>
 			{:else}
@@ -62,8 +67,8 @@
 						</DropdownItem>
 						<DropdownItem divider />
 						<DropdownItem>
-                            <NavLink href="/signup/">Sign Up</NavLink>
-                        </DropdownItem>
+							<NavLink href="/signup/">Sign Up</NavLink>
+						</DropdownItem>
 					</DropdownMenu>
 				</Dropdown>
 				<NavItem />
