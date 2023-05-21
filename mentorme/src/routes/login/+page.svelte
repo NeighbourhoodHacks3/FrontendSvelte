@@ -20,31 +20,34 @@
 	<meta name="description" content="View Requests from Mentees" />
 </svelte:head>
 
-<div style="text-align: center;" class="text-column">
-	<h1>LOGIN</h1>
+<div style="text-align: center;" class="text-column;" on:load={clearAll}>
+  <h1>LOGIN</h1>
 
-	<!-- login stuffs -->
-    <form action="/" method="post">
-      <div style="font-size: 25px;">
-        <label for="email">email</label>
-        <input type="text" id="email" name="email" style="height: 25px; font-size: 22px;">
-      </div>
+  <div style="margin: 30px;"></div>
+
+  <!-- login stuffs -->
+  <form action="/" method="post">
+    <div style="font-size: 25px;">
+      <label for="email">Email</label>
+      <input type="text" id="email" name="email" style="height: 35px; font-size: 22px;">
+    </div>
+
+    <div style="margin: 10px;"></div>
+
+    <div style="font-size: 25px;">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" style="height: 35px; font-size: 22px;">
+    </div>
+
+    <div style="margin: 20px;"></div>
+
+    <button class="btn btn-primary" on:click={enter}>Login</button>
+  </form>
+
+  <div style="margin: 20px;"></div>
   
-      <div style="margin: 10px;"></div>
-  
-      <div style="font-size: 25px;">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" style="height: 25px; font-size: 22px;">
-      </div>
-
-      <button class="btn btn-primary" on:click={enter}>Login</button>
-    </form>
-
-	<br>
-
-	<nav>
-	  <a style="font-size: 25px;" href="/">login</a><br><br>
+  <nav>
     <a style="font-size: 25px;" href="/signup">create new user</a><br><br>
-	</nav>
+  </nav>
 
 </div>
