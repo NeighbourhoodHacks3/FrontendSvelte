@@ -54,6 +54,13 @@
 						</DropdownItem>
 						<DropdownItem divider />
 						<DropdownItem>
+							<NavLink href="/requests/create">Post Request</NavLink>
+						</DropdownItem>
+						<DropdownItem>
+							<NavLink href="/offers/create">Post Offer</NavLink>
+						</DropdownItem>
+						<DropdownItem divider />
+						<DropdownItem>
 							<NavLink href="/login">Log Out</NavLink>
 						</DropdownItem>
 					</DropdownMenu>

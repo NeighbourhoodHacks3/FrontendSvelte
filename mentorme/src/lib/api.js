@@ -89,7 +89,7 @@ export const createRequestPost = async (
 	/** @type {string} */ description,
 	/** @type {string[]} */ tags,
 	/** @type {string} */ location,
-	/** @type {string} */ payment
+	/** @type {Number} */ payment
 ) => {
 	try {
 		const bodyJson = {
@@ -235,7 +235,7 @@ export const createOfferPost = async (
 	/** @type {string} */ description,
 	/** @type {string[]} */ tags,
 	/** @type {string} */ location,
-	/** @type {string} */ payment
+	/** @type {Number} */ payment
 ) => {
 	try {
 		const bodyJson = {
