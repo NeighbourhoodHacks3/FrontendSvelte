@@ -2,63 +2,19 @@
 	import { page } from '$app/stores';
 	import logo from '$lib/images/svelte-logo.svg';
 	import github from '$lib/images/github.svg';
-
-	import {
-		Collapse,
-		Navbar,
-		NavbarToggler,
-		NavbarBrand,
-		Nav,
-		NavItem,
-		NavLink,
-		Dropdown,
-		DropdownToggle,
-		DropdownMenu,
-		DropdownItem
-	} from 'sveltestrap';
-
-	let isOpen = false;
-
-	/**
-	 * @param {{ detail: { isOpen: boolean; }; }} event
-	 */
-	function handleUpdate(event) {
-		isOpen = event.detail.isOpen;
-	}
+	import NavBar from './NavBar.svelte';
 </script>
 
 <header>
-	<div class="corner">
+	<NavBar />
+
+	<!-- <div class="corner">
 		<a href="https://kit.svelte.dev">
 			<img src={logo} alt="SvelteKit" />
 		</a>
 	</div>
 
-	<Navbar color="light" light expand="md">
-		<NavbarBrand href="/">sveltestrap</NavbarBrand>
-		<NavbarToggler on:click={() => (isOpen = !isOpen)} />
-		<Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
-		  <Nav class="ms-auto" navbar>
-			<NavItem>
-			  <NavLink href="#components/">Components</NavLink>
-			</NavItem>
-			<NavItem>
-			  <NavLink href="https://github.com/bestguy/sveltestrap">GitHub</NavLink>
-			</NavItem>
-			<Dropdown nav inNavbar>
-			  <DropdownToggle nav caret>Options</DropdownToggle>
-			  <DropdownMenu end>
-				<DropdownItem>Option 1</DropdownItem>
-				<DropdownItem>Option 2</DropdownItem>
-				<DropdownItem divider />
-				<DropdownItem>Reset</DropdownItem>
-			  </DropdownMenu>
-			</Dropdown>
-		  </Nav>
-		</Collapse>
-	  </Navbar>
-
-	<!-- <nav>
+	<nav>
 		<svg viewBox="0 0 2 3" aria-hidden="true">
 			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
 		</svg>
@@ -76,17 +32,17 @@
 		<svg viewBox="0 0 2 3" aria-hidden="true">
 			<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />
 		</svg>
-	</nav> -->
+	</nav>
 
 	<div class="corner">
 		<a href="https://github.com/sveltejs/kit">
 			<img src={github} alt="GitHub" />
 		</a>
-	</div>
+	</div> -->
 </header>
 
 <style>
-	header {
+	/* header {
 		display: flex;
 		justify-content: space-between;
 	}
@@ -172,5 +128,5 @@
 
 	a:hover {
 		color: var(--color-theme-1);
-	}
+	} */
 </style>
