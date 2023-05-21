@@ -1,12 +1,40 @@
 <script>
 	import welcome from '$lib/images/svelte-welcome.webp';
 	import welcome_fallback from '$lib/images/svelte-welcome.png';
+	import logo from '$lib/images/logo.png';
+	import programmer from '$lib/images/programmer.png';
+	import teacher from '$lib/images/teacher.png';
+	import graphicdesigner from '$lib/images/graphicdesigner.png';
+	import artist from '$lib/images/artist.png';
 </script>
 
 <svelte:head>
 	<title>Home</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
+
+<body style="text-align: center;">
+	<img src={logo} alt="logo">
+
+	<div style="margin: 30px;"></div>
+
+	<input style="height: 50px; font-size: 35px;" type="text" placeholder="Seach...">
+
+	<div style="margin: 30px;"></div>
+
+	<div>
+		<img style="padding: 10px; height: 300px; width: 300px; margin-right: 300px;" src={programmer} alt="programmer">
+		<img style="padding: 10px; height: 300px; width: 300px;" src={teacher} alt="teacher"><br>
+		<img style="padding: 10px; height: 300px; width: 300px; margin-right: 300px;" src={graphicdesigner} alt="graphicdesigner">
+		<img style="padding: 10px; height: 300px; width: 300px;" src={artist} alt="artist">
+	</div>
+
+	<div style="margin: 30px;"></div>
+
+	<nav>
+		<a style="font-size: 20px;" href="/about">need help?</a><br><br>
+	</nav>
+</body>
 
 <section>
 	<!--
@@ -19,10 +47,12 @@
 		</span>
 	</h1>-->
 
-	<img src="../images/icon.png" alt="display icon">
+	<!--<h2>
+		try editing <strong>src/routes/+page.svelte</strong>
+	</h2>-->
 
-	<br><br>
-
+	<!-- login stuffs -->
+	<!--
     <form action="/" method="post">
       <div style="font-size: 25px;">
         <label for="userId">User ID</label>
@@ -37,16 +67,11 @@
       </div>
     </form>
 
-	<!--<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>-->
-
 	<br>
 
 	<nav>
 		<a style="font-size: 20px;" href="/profile">create new user</a><br><br>
-	</nav>
-
+	</nav>-->
 </section>
 
 <style>
