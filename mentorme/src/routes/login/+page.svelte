@@ -1,17 +1,16 @@
 <script lang="ts">
-  import { currentUser } from '$lib/stores.js';
+  import { login } from '$lib/api.js';
 
-  function login() {
-    let user_value: { email?: string; password?: string };
-
+  function enter() {
     let email = document.getElementById('email');
     let password = document.getElementById('password');
-    
-    currentUser.subscribe((value) => {
-		  user_value = value;
-	  });
 
-    //push to db
+    if (email == null || password == null) {
+      alert('No such user details. Please re-enter details!')
+    }
+    else {
+      login(email.toString(), password.toString());
+    }
   }
 
 </script>
@@ -38,7 +37,7 @@
         <input type="password" id="password" name="password" style="height: 25px; font-size: 22px;">
       </div>
 
-      <button class="btn btn-primary" on:click={login}>Login</button>
+      <button class="btn btn-primary" on:click={enter}>Login</button>
     </form>
 
 	<br>
