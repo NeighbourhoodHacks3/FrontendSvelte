@@ -21,9 +21,9 @@
 	<!-- can use this to implement searchbar
 	https://framework7.io/svelte/searchbar -->
 
-	<input style="height: 50px; font-size: 35px;" type="text" placeholder="Seach..." />
+	<!-- <input style="height: 50px; font-size: 35px;" type="text" placeholder="Seach..." />
 
-	<div style="margin: 30px;" />
+	<div style="margin: 30px;" /> -->
 
 	<div>
 		<img
