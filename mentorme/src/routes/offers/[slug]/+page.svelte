@@ -1,8 +1,23 @@
 <script lang="ts">
-	import { ListGroup, ListGroupItem } from 'sveltestrap';
+	import {
+		Button,
+		Form,
+		FormGroup,
+		Input,
+		ListGroup,
+		ListGroupItem,
+		Card,
+		CardBody,
+		CardFooter,
+		CardHeader,
+		CardSubtitle,
+		CardText,
+		CardTitle
+	} from 'sveltestrap';
 	import { onMount } from 'svelte';
-	import { getOfferPost, getUserData } from '$lib/api.js';
+	import { getOfferPost, getUserData, getOfferComments, createOfferComment } from '$lib/api.js';
 	import { Accordion, AccordionItem } from 'sveltestrap';
+	import { currentUser } from '$lib/stores.js';
 
 	/** @type {import('./$types').PageData}*/
 	export let data = {};
@@ -42,6 +57,16 @@
 		experience: []
 	};
 
+	var comments: string | any[] = [];
+
+	var newComment: string = '';
+
+	let user_value: { userID: any; name?: string; email?: string; password?: string };
+
+	currentUser.subscribe((value) => {
+		user_value = value;
+	});
+
 	onMount(async () => {
 		// Make the API Call here
 		// @ts-ignore
@@ -49,11 +74,22 @@
 			offerInfo = res;
 			posterInfo = await getUserData(offerInfo.userID);
 
-			console.log("offerInfo" + offerInfo);
-			console.log("posterInfo" + posterInfo);
-			
+			comments = await getOfferComments(offerInfo._id);
 		});
 	});
+
+	function formatDate(date: string) {
+		var d = new Date(date);
+		return d.toLocaleString();
+	}
+
+	function submitComment() {
+		// Await, then use then do the alert when the API call is done
+		createOfferComment(user_value.userID, offerInfo._id, newComment).then((updateResponse) => {
+			alert(updateResponse);
+			newComment = '';
+		});
+	}
 </script>
 
 <svelte:head>
@@ -77,16 +113,18 @@
 			Description: {offerInfo.description}
 		</p>
 
-		<p>
-			Tags:
-		</p>
-		<ListGroup>
-			{#each offerInfo.tags as item}
-				<ListGroupItem>
-					{item}
-				</ListGroupItem>
-			{/each}
-		</ListGroup>
+		<p>Tags:</p>
+		{#if offerInfo.title == '' || offerInfo.title == null || offerInfo.tags.length == 0}
+			<p>No tags</p>
+		{:else}
+			<ListGroup>
+				{#each offerInfo.tags as item}
+					<ListGroupItem>
+						{item}
+					</ListGroupItem>
+				{/each}
+			</ListGroup>
+		{/if}
 
 		<p>
 			Location: {offerInfo.location}
@@ -97,7 +135,7 @@
 		</p>
 
 		<p>
-			Post Time: {offerInfo.postTime}
+			Post Time: {formatDate(offerInfo.postTime)}
 		</p>
 
 		<p>
@@ -112,7 +150,9 @@
 		<Accordion stayOpen>
 			<AccordionItem active header="Poster Info">
 				<p>
-					Poster ID: {posterInfo._id}
+					<a href={'/profile/' + posterInfo._id}>
+						Poster ID: {posterInfo._id}
+					</a>
 				</p>
 				<p>
 					Username: {posterInfo.username}
@@ -124,20 +164,90 @@
 					Description: {posterInfo.description}
 				</p>
 				<ListGroup>
-					{#each posterInfo.experience as item}
-						<ListGroupItem>
-							Experience: {item}
-						</ListGroupItem>
-					{/each}
+					{#if posterInfo.username == '' || posterInfo.username == null || posterInfo.experience.length == 0}
+						<ListGroupItem>No experience listed</ListGroupItem>
+					{:else}
+						{#each posterInfo.experience as item}
+							<ListGroupItem>
+								Experience: {item}
+							</ListGroupItem>
+						{/each}
+					{/if}
 				</ListGroup>
 			</AccordionItem>
-		  </Accordion>
+		</Accordion>
 
-		<hr>
+		<hr />
 
 		<!-- Comments section -->
+		<h2>Comments</h2>
+
+		{#if comments.length == 0}
+			<p>No comments</p>
+		{:else}
+			{#each comments as item}
+				<!-- <div>
+					<p>
+						Comment ID: {item._id}
+					</p>
+					<p>
+						Comment: {item.comment}
+					</p>
+					<p>
+						Comment Time: {item.commentTime}
+					</p>
+					<p>
+						Commenter ID: {item.userID}
+					</p>
+				</div> -->
+
+				<!-- Card -->
+				<Card>
+					<CardBody>
+						<CardTitle>
+							<!-- User ID and link -->
+							<a href={'/profile/' + item.userID}>
+								User: {item.userID}
+							</a>
+						</CardTitle>
+						<CardSubtitle>
+							Comment Time: {formatDate(item.commentTime)}
+						</CardSubtitle>
+						<CardText>
+							Comment: {item.comment}
+						</CardText>
+					</CardBody>
+				</Card>
+			{/each}
+		{/if}
+
+		<br />
 
 		<!-- Add comment button -->
+		<h3>Add Comment</h3>
+		<Form>
+			<FormGroup floating label="Comment">
+				<!-- Show existing description if any -->
+				<Input
+					type="textarea"
+					name="description"
+					id="comment"
+					style="height: 100px"
+					bind:value={newComment}
+				/>
+			</FormGroup>
+		</Form>
 
+		<Button color="primary" on:click={submitComment}>Submit Comment</Button>
 	</div>
 </div>
+
+<style>
+	h2 {
+		font-size: 1.5rem;
+	}
+
+	h3 {
+		font-size: 1rem;
+	}
+</style>
