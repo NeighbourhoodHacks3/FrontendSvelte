@@ -43,12 +43,11 @@ export const updateUserProfile = async (
 
 		console.log(bodyJson);
 
-		const res = await axios.get('http://127.0.0.1:5000/user/update', {
+		const res = await axios.post('http://127.0.0.1:5000/user/update', bodyJson, {
 			headers: {
 				'Content-Type': 'application/json',
 				'Access-Control-Allow-Origin': '*'
 			},
-            data: bodyJson
 		});
 
 		return res.data;
@@ -56,3 +55,5 @@ export const updateUserProfile = async (
 		console.log(err);
 	}
 };
+
+
