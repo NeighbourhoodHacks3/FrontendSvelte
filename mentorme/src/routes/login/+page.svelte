@@ -1,3 +1,21 @@
+<script lang="ts">
+  import { currentUser } from '$lib/stores.js';
+
+  function login() {
+    let user_value: { email?: string; password?: string };
+
+    let email = document.getElementById('email');
+    let password = document.getElementById('password');
+    
+    currentUser.subscribe((value) => {
+		  user_value = value;
+	  });
+
+    //push to db
+  }
+
+</script>
+
 <svelte:head>
 	<title>Login</title>
 	<meta name="description" content="View Requests from Mentees" />
@@ -9,8 +27,8 @@
 	<!-- login stuffs -->
     <form action="/" method="post">
       <div style="font-size: 25px;">
-        <label for="userId">User ID</label>
-        <input type="text" id="userId" name="userId" style="height: 25px; font-size: 22px;">
+        <label for="email">email</label>
+        <input type="text" id="email" name="email" style="height: 25px; font-size: 22px;">
       </div>
   
       <div style="margin: 10px;"></div>
@@ -19,13 +37,15 @@
         <label for="password">Password</label>
         <input type="password" id="password" name="password" style="height: 25px; font-size: 22px;">
       </div>
+
+      <button class="btn btn-primary" on:click={login}>Login</button>
     </form>
 
 	<br>
 
 	<nav>
 	  <a style="font-size: 25px;" href="/">login</a><br><br>
-    <a style="font-size: 25px;" href="/create">create new user</a><br><br>
+    <a style="font-size: 25px;" href="/signup">create new user</a><br><br>
 	</nav>
 
 </div>
