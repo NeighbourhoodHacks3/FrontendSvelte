@@ -14,28 +14,36 @@
 </svelte:head>
 
 <body style="text-align: center;">
-	<img src={logo} alt="logo">
+	<img src={logo} alt="logo" />
 
-	<div style="margin: 30px;"></div>
+	<div style="margin: 30px;" />
 
 	<!-- can use this to implement searchbar
 	https://framework7.io/svelte/searchbar -->
 
-	<input style="height: 50px; font-size: 35px;" type="text" placeholder="Seach...">
+	<!-- <input style="height: 50px; font-size: 35px;" type="text" placeholder="Seach..." />
 
-	<div style="margin: 30px;"></div>
+	<div style="margin: 30px;" /> -->
 
 	<div>
-		<img style="padding: 10px; height: 300px; width: 300px; margin-right: 300px;" src={programmer} alt="programmer">
-		<img style="padding: 10px; height: 300px; width: 300px;" src={teacher} alt="teacher"><br>
-		<img style="padding: 10px; height: 300px; width: 300px; margin-right: 300px;" src={graphicdesigner} alt="graphicdesigner">
-		<img style="padding: 10px; height: 300px; width: 300px;" src={artist} alt="artist">
+		<img
+			style="padding: 10px; height: 300px; width: 300px; margin-right: 300px;"
+			src={programmer}
+			alt="programmer"
+		/>
+		<img style="padding: 10px; height: 300px; width: 300px;" src={teacher} alt="teacher" /><br />
+		<img
+			style="padding: 10px; height: 300px; width: 300px; margin-right: 300px;"
+			src={graphicdesigner}
+			alt="graphicdesigner"
+		/>
+		<img style="padding: 10px; height: 300px; width: 300px;" src={artist} alt="artist" />
 	</div>
 
-	<div style="margin: 30px;"></div>
+	<div style="margin: 30px;" />
 
 	<nav>
-		<a style="font-size: 20px;" href="/about">need help?</a><br><br>
+		<a style="font-size: 20px;" href="/about">need help?</a><br /><br />
 	</nav>
 </body>
 
@@ -50,12 +58,12 @@
 		</span>
 	</h1>-->
 
-	<!--<h2>
+<!--<h2>
 		try editing <strong>src/routes/+page.svelte</strong>
 	</h2>-->
 
-	<!-- login stuffs -->
-	<!--
+<!-- login stuffs -->
+<!--
     <form action="/" method="post">
       <div style="font-size: 25px;">
         <label for="userId">User ID</label>
