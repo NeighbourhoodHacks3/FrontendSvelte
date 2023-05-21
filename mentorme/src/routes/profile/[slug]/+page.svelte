@@ -4,7 +4,7 @@
 	import { getUserData } from '$lib/api.js';
 
 	/** @type {import('./$types').PageData}*/
-	export let data = {}
+	export let data = {};
 
 	var res = {
 		_id: '',
@@ -45,18 +45,25 @@
 	<!-- Use data from the API call here -->
 	<div>
 		<p>
-			Job Title: { res.jobTitle}
+			Job Title: {res.jobTitle}
 		</p>
 		<p>
 			Description: {res.description}
 		</p>
 		<ListGroup>
-			{#each res.experience as item}
+			{#if res.experience.length == 0}
+				<ListGroupItem>Experience: None</ListGroupItem>
+			{:else if res.experience.length == 1}
 				<ListGroupItem>
-					Experience: {item}
+					Experience: {res.experience[0]}
 				</ListGroupItem>
-			{/each}
+			{:else}
+				{#each res.experience as item}
+					<ListGroupItem>
+						Experience: {item}
+					</ListGroupItem>
+				{/each}
+			{/if}
 		</ListGroup>
 	</div>
-
 </div>

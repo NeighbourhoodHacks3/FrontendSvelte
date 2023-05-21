@@ -16,6 +16,22 @@
 	import { currentUser } from '$lib/stores';
 	import { subscribe } from 'svelte/internal';
 
+	let user_value: { userID: any; name?: string; email?: string; password?: string };
+
+	currentUser.subscribe((value) => {
+		user_value = value;
+	});
+
+	// Clear the user data in currentUser
+	currentUser.set({
+		userID: '',
+		name: '',
+		email: '',
+		password: ''
+	});
+
+	console.log('user_value: ', user_value);
+
 	let isOpen = false;
 
 	function handleUpdate(event: { detail: { isOpen: boolean } }) {
@@ -40,7 +56,7 @@
 			<!-- <NavItem>
         <NavLink href="https://github.com/bestguy/sveltestrap">GitHub</NavLink>
       </NavItem> -->
-			{#if $currentUser.userID != null}
+			{#if $currentUser.userID != ''}
 				<Dropdown nav inNavbar>
 					<DropdownToggle nav caret>Profile</DropdownToggle>
 					<DropdownMenu end>

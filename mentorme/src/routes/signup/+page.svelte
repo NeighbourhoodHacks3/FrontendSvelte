@@ -1,44 +1,131 @@
+<script lang="ts">
+	import { createUser } from '$lib/api.js';
+	import { Form, FormGroup, Input } from 'sveltestrap';
+	import { currentUser } from '$lib/stores';
+    import { redirect } from '@sveltejs/kit';
+
+	// 	/** @type {string} */ userID,
+	// /** @type {string} */ title,
+	// /** @type {string} */ description,
+	// /** @type {string[]} */ tags,
+	// /** @type {string} */ location,
+	// /** @type {string} */ payment
+
+	var userInfo = {
+		username: '',
+		email: '',
+		password: '',
+		cfmPassword: ''
+	};
+
+	var infoMsg = 'Create a new account';
+
+	async function submitForm() {
+		// Form validation
+		if (
+			userInfo.username == '' ||
+			userInfo.email == '' ||
+			userInfo.password == '' ||
+			userInfo.cfmPassword == ''
+		) {
+			alert('Please fill out all fields');
+			return;
+		}
+
+		// Check if password and confirm password match
+		if (userInfo.password != userInfo.cfmPassword) {
+			alert('Passwords do not match');
+			return;
+		}
+
+		// Await, then use then do the alert when the API call is done
+		createUser(userInfo.username, userInfo.email, userInfo.password).then((updateResponse) => {
+			if (updateResponse.hasOwnProperty('_id')) {
+				currentUser.set({
+					userID: updateResponse._id,
+					name: userInfo.username,
+					email: userInfo.email,
+					password: userInfo.password
+				});
+
+				// Redirect to offers page
+                window.location.href = "http://127.0.0.1:5173/profile/" + updateResponse._id;
+
+			} else {
+				// Update infoMsg
+				infoMsg = updateResponse;
+			}
+		});
+	}
+</script>
+
 <svelte:head>
-	<title>Mentee's Requests</title>
-	<meta name="description" content="View Requests from Mentees" />
+	<title>SignUp</title>
+	<meta name="description" content="View Offers from Mentors" />
 </svelte:head>
 
-<div style="text-align: center;" class="text-column">
-	<h1>CREATE NEW USER</h1><br>
+<div class="text-column">
+	<h1>SignUp for MentorMe</h1>
 
-    <!-- create new user -->
-	<form action="/" method="post">
-        <div style="font-size: 25px;">
-            <label for="userId">Enter username</label>
-            <input type="text" id="userId" name="userId" style="height: 25px; font-size: 22px;">
-        </div>
-    
-        <div style="margin: 20px;"></div>
-    
-        <div style="font-size: 25px;">
-            <label for="password">Enter password</label>
-            <input type="text" id="password" name="password" style="height: 25px; font-size: 22px;">
-        </div>
-    
-        <div style="margin: 20px;"></div>
-    
-        <div style="font-size: 25px;">
-            <label for="email">Enter email</label>
-            <input type="text" id="email" name="email" style="height: 25px; font-size: 22px;">
-        </div>
-    
-        <div style="margin: 20px;"></div>
-    
-        <div style="font-size: 25px;">
-            <label for="description">Enter description</label>
-            <input type="text" id="description" name="description" style="height: 25px; font-size: 22px;">
-        </div>
-    </form>
+	<br />
+	<p class="sub-title" style="text-align: center;">{infoMsg}</p>
+	<br />
 
-	<br>
+	<Form>
+		<FormGroup floating label="Username">
+			<!-- Show existing jobTitle if any -->
+			<Input type="text" name="username" id="username" bind:value={userInfo.username} />
+		</FormGroup>
 
-	<nav>
-	  <a style="font-size: 25px;" href="/">create</a><br><br>
+		<FormGroup floating label="Email">
+			<!-- Show existing jobTitle if any -->
+			<Input type="text" name="email" id="email" bind:value={userInfo.email} />
+		</FormGroup>
+
+		<FormGroup floating label="Pasword">
+			<!-- Show existing jobTitle if any -->
+			<Input type="password" name="password" id="password" bind:value={userInfo.password} />
+		</FormGroup>
+
+		<FormGroup floating label="Confirm Pasword">
+			<!-- Show existing jobTitle if any -->
+			<Input
+				type="password"
+				name="cfmPassword"
+				id="cfmPassword"
+				bind:value={userInfo.cfmPassword}
+			/>
+		</FormGroup>
+	</Form>
+
+	<button
+		class="btn btn-primary"
+		on:click={() => {
+			submitForm();
+		}}
+	>
+		SignUp
+	</button>
+
+	<hr />
+
+	<nav style="text-align: center;">
+		<a style="font-size: 1.3em;" href="/login">Login instead</a>
 	</nav>
-
 </div>
+
+<style>
+	.centered {
+		max-width: 20em;
+		margin: 0 auto;
+	}
+
+	.text-column {
+		min-width: 30em;
+		margin: 0 auto;
+	}
+
+	.sub-title {
+		font-size: 1.2em;
+	}
+</style>

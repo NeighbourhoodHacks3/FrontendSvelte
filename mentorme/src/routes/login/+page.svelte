@@ -1,55 +1,105 @@
 <script lang="ts">
 	import { login } from '$lib/api.js';
-  import logo from '$lib/images/logo.png';
+	import { Form, FormGroup, Input } from 'sveltestrap';
+	import { redirect } from '@sveltejs/kit';
+	import { currentUser } from '$lib/stores';
 
-	function enter() {
-		let email = document.getElementById('email');
-		let password = document.getElementById('password');
+	// 	/** @type {string} */ userID,
+	// /** @type {string} */ title,
+	// /** @type {string} */ description,
+	// /** @type {string[]} */ tags,
+	// /** @type {string} */ location,
+	// /** @type {string} */ payment
 
-		if (email == null || password == null) {
-			alert('No such user details. Please re-enter details!');
-		} else {
-			login(email.toString(), password.toString());
+	var userInfo = {
+		email: '',
+		password: ''
+	};
+
+	var infoMsg = 'Please enter your email and password';
+
+	async function submitForm() {
+		// Form validation
+		if (userInfo.email == '' || userInfo.password == '') {
+			alert('Please fill out all fields');
+			return;
 		}
+
+		// Await, then use then do the alert when the API call is done
+		login(userInfo.email, userInfo.password).then((updateResponse) => {
+			alert(updateResponse);
+
+			// Check if it has the fields we want
+			if (updateResponse.hasOwnProperty('_id')) {
+				currentUser.set({
+					userID: updateResponse._id,
+					name: updateResponse.name,
+					email: updateResponse.email,
+					password: updateResponse.password
+				});
+
+				// Redirect to offers page
+        window.location.href = "http://127.0.0.1:5173/profile/" + updateResponse._id;
+			} else {
+				// Update infoMsg
+				infoMsg = updateResponse;
+			}
+		});
 	}
 </script>
 
 <svelte:head>
 	<title>Login</title>
-	<meta name="description" content="View Requests from Mentees" />
+	<meta name="description" content="View Offers from Mentors" />
 </svelte:head>
 
-<div style="text-align: center;" class="text-column;">
-	<img src={logo} alt="logo" />
+<div class="text-column">
+	<h1>Login to MentorMe</h1>
 
-	<div style="margin: 30px;" />
+	<br />
+	<p class="sub-title" style="text-align: center;">{infoMsg}</p>
+	<br />
 
-	<h1>LOGIN</h1>
+	<Form>
+		<FormGroup floating label="Email">
+			<!-- Show existing jobTitle if any -->
+			<Input type="text" name="email" id="email" bind:value={userInfo.email} />
+		</FormGroup>
 
-	<div style="margin: 30px;" />
+		<FormGroup floating label="Password">
+			<!-- Show existing jobTitle if any -->
+			<Input type="password" name="password" id="password" bind:value={userInfo.password} />
+		</FormGroup>
+	</Form>
 
-	<!-- login stuffs -->
-	<form action="/" method="post">
-		<div style="font-size: 25px;">
-			<label for="email">Email</label>
-			<input type="text" id="email" name="email" style="height: 35px; font-size: 22px;" />
-		</div>
+	<button
+		class="btn btn-primary"
+		on:click={() => {
+			submitForm();
+		}}
+	>
+		Login
+	</button>
 
-		<div style="margin: 10px;" />
+	<hr />
 
-		<div style="font-size: 25px;">
-			<label for="password">Password</label>
-			<input type="password" id="password" name="password" style="height: 35px; font-size: 22px;" />
-		</div>
-
-		<div style="margin: 20px;" />
-
-		<button class="btn btn-primary" on:click={enter}>Login</button>
-	</form>
-
-	<div style="margin: 20px;" />
-
-	<nav>
-		<a style="font-size: 25px;" href="/signup">create new user</a><br /><br />
+	<nav style="text-align: center;">
+		<a style="font-size: 1.3em;" href="/signup">SignUp instead</a>
 	</nav>
 </div>
+
+<style>
+	.centered {
+		max-width: 20em;
+		margin: 0 auto;
+	}
+
+	.text-column {
+		min-width: 30em;
+		margin: 0 auto;
+	}
+
+	.sub-title {
+		font-size: 1.2em;
+	}
+</style>

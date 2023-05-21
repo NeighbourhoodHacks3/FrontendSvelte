@@ -15,13 +15,17 @@
 		CardTitle
 	} from 'sveltestrap';
 	import { onMount } from 'svelte';
-	import { getRequestPost, getUserData, getRequestComments, createRequestComment } from '$lib/api.js';
+	import {
+		getRequestPost,
+		getUserData,
+		getRequestComments,
+		createRequestComment
+	} from '$lib/api.js';
 	import { Accordion, AccordionItem } from 'sveltestrap';
 	import { currentUser } from '$lib/stores.js';
 
 	/** @type {import('./$types').PageData}*/
 	export let data = {};
-
 
 	var requestInfo = {
 		_id: '',
@@ -102,6 +106,8 @@
 		<p>Tags:</p>
 		{#if requestInfo.title == '' || requestInfo.title == null || requestInfo.tags.length == 0}
 			<p>No tags</p>
+		{:else if requestInfo.tags.length == 0}
+			<p>No tags</p>
 		{:else}
 			<ListGroup>
 				{#each requestInfo.tags as item}
@@ -150,7 +156,9 @@
 					Description: {posterInfo.description}
 				</p>
 				<ListGroup>
-					{#if posterInfo.username == '' || posterInfo.username == null || posterInfo.experience.length == 0}
+					{#if posterInfo.username == '' || posterInfo.username == null}
+						<ListGroupItem>No experience listed</ListGroupItem>
+					{:else if posterInfo.experience == null}
 						<ListGroupItem>No experience listed</ListGroupItem>
 					{:else}
 						{#each posterInfo.experience as item}
@@ -168,25 +176,10 @@
 		<!-- Comments section -->
 		<h2>Comments</h2>
 
-		{#if comments.length == 0}
+		{#if comments == null}
 			<p>No comments</p>
 		{:else}
 			{#each comments as item}
-				<!-- <div>
-					<p>
-						Comment ID: {item._id}
-					</p>
-					<p>
-						Comment: {item.comment}
-					</p>
-					<p>
-						Comment Time: {item.commentTime}
-					</p>
-					<p>
-						Commenter ID: {item.userID}
-					</p>
-				</div> -->
-
 				<!-- Card -->
 				<Card>
 					<CardBody>

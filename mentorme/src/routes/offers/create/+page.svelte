@@ -76,20 +76,24 @@
 		<!-- Experience, can add more elements -->
 		<Label for="experience">Tags:</Label>
 		<FormGroup floating label="">
-			{#each tags_array as experience, i}
-				<div class="d-flex">
-					<Input type="text" name="experience" id="experience" bind:value={tags_array[i]} />
-					<button
-						class="btn btn-danger"
-						on:click={() => {
-							tags_array.splice(i, 1);
-							tags_array = tags_array;
-						}}
-					>
-						Remove
-					</button>
-				</div>
-			{/each}
+			{#if tags_array.length == 0}
+				<p>No tags added yet</p>
+			{:else}
+				{#each tags_array as experience, i}
+					<div class="d-flex">
+						<Input type="text" name="experience" id="experience" bind:value={tags_array[i]} />
+						<button
+							class="btn btn-danger"
+							on:click={() => {
+								tags_array.splice(i, 1);
+								tags_array = tags_array;
+							}}
+						>
+							Remove
+						</button>
+					</div>
+				{/each}
+			{/if}
 			<button
 				class="btn btn-primary"
 				on:click={() => {
@@ -127,5 +131,4 @@
 		max-width: 20em;
 		margin: 0 auto;
 	}
-
 </style>

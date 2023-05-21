@@ -1,74 +1,44 @@
 <script lang="ts">
-	import { login } from '$lib/api.js';
-	import logo from '$lib/images/logo.png';
-	import { goto } from '$app/navigation';
+	import { currentUser } from '$lib/stores.js';
 
-	let email = document.getElementById('email');
-	let password = document.getElementById('password');
-	let verified = false;
+	let user_value: { userID: any; name?: string; email?: string; password?: string };
 
-	function enter() {
-		if (email == null || password == null) {
-			alert('No such user details. Please re-enter details!');
-			//goto('/');
-			//window.location.href = "+page.svelte"
-			//verified = false;
-		} else {
-			login(email.toString(), password.toString());
-			//verified = true;
-		}
+	currentUser.subscribe((value) => {
+		user_value = value;
+	});
 
-		// if (verified == true) {
-		// 	login(email.toString(), password.toString());
-		// }
+	// Clear the user data in currentUser
+	currentUser.set({
+		userID: '',
+		name: '',
+		email: '',
+		password: ''
+	});
 
-		// if (email != null && password != null) {
-		// 	login(email.toString(), password.toString());
-		// }
-	}
-
-	function clearAll() {
-		email = null;
-		password = null;
-	}
+	console.log('user_value: ', user_value);
 </script>
 
 <svelte:head>
-	<title>Login</title>
+	<title>Log Out</title>
 	<meta name="description" content="View Requests from Mentees" />
 </svelte:head>
 
-<div style="text-align: center;" class="text-column;" on:load={clearAll}>
-	<img src={logo} alt="logo" />
+<div class="text-column centered">
+	<h1>You've Logged Out!</h1>
 
-	<div style="margin: 30px;" />
-	
-	<h1>LOGIN</h1>
+	<br />
 
-	<div style="margin: 30px;" />
+	<p>You have successfully logged out of MentorMe. See you next time!</p>
 
-	<!-- login stuffs -->
-	<form action="/" method="post">
-		<div style="font-size: 25px;">
-			<label for="email">Email</label>
-			<input type="text" id="email" name="email" style="height: 35px; font-size: 22px;" />
-		</div>
-
-		<div style="margin: 10px;" />
-
-		<div style="font-size: 25px;">
-			<label for="password">Password</label>
-			<input type="password" id="password" name="password" style="height: 35px; font-size: 22px;" />
-		</div>
-
-		<div style="margin: 20px;" />
-
-		<button class="btn btn-primary" on:click={enter}>Login</button>
-	</form>
-
-	<div style="margin: 20px;" />
+	<br />
 
 	<nav>
-		<a style="font-size: 25px;" href="/signup">create new user</a><br /><br />
+		<a style="font-size: 25px;" href="/">Back to Home</a><br /><br />
 	</nav>
 </div>
+
+<style>
+	.centered {
+		text-align: center;
+	}
+</style>

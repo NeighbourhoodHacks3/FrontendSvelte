@@ -118,11 +118,15 @@
 			<p>No tags</p>
 		{:else}
 			<ListGroup>
-				{#each offerInfo.tags as item}
-					<ListGroupItem>
-						{item}
-					</ListGroupItem>
-				{/each}
+				{#if offerInfo.tags.length == 0}
+					<ListGroupItem>No tags</ListGroupItem>
+				{:else}
+					{#each offerInfo.tags as item}
+						<ListGroupItem>
+							{item}
+						</ListGroupItem>
+					{/each}
+				{/if}
 			</ListGroup>
 		{/if}
 
@@ -166,6 +170,8 @@
 				<ListGroup>
 					{#if posterInfo.username == '' || posterInfo.username == null || posterInfo.experience.length == 0}
 						<ListGroupItem>No experience listed</ListGroupItem>
+					{:else if posterInfo.experience.length == 0}
+						<ListGroupItem>No experience listed</ListGroupItem>
 					{:else}
 						{#each posterInfo.experience as item}
 							<ListGroupItem>
@@ -182,25 +188,10 @@
 		<!-- Comments section -->
 		<h2>Comments</h2>
 
-		{#if comments.length == 0}
+		{#if comments == null || comments.length == 0}
 			<p>No comments</p>
 		{:else}
 			{#each comments as item}
-				<!-- <div>
-					<p>
-						Comment ID: {item._id}
-					</p>
-					<p>
-						Comment: {item.comment}
-					</p>
-					<p>
-						Comment Time: {item.commentTime}
-					</p>
-					<p>
-						Commenter ID: {item.userID}
-					</p>
-				</div> -->
-
 				<!-- Card -->
 				<Card>
 					<CardBody>

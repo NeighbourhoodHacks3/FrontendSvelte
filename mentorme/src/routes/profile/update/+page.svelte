@@ -4,7 +4,6 @@
 	import { currentUser } from '$lib/stores.js';
 	import { Badge, Form, FormGroup, Input, Label } from 'sveltestrap';
 
-
 	var res = {
 		_id: '',
 		description: '',
@@ -44,8 +43,6 @@
 			alert(updateResponse);
 		});
 	}
-	
-
 </script>
 
 <svelte:head>
@@ -80,30 +77,27 @@
 		</FormGroup>
 
 		<!-- Experience, can add more elements -->
-		<Label for="experience">
-			Experience:
-		</Label>
+		<Label for="experience">Experience:</Label>
 		<FormGroup floating label="">
+			{#if experience_array.length == 0}
+				<p class="centered">No experience added yet.</p>
+			{:else}
+				{#each experience_array as experience, i}
+					<div class="d-flex">
+						<Input type="text" name="experience" id="experience" bind:value={experience_array[i]} />
+						<button
+							class="btn btn-danger"
+							on:click={() => {
+								experience_array.splice(i, 1);
+								experience_array = experience_array;
+							}}
+						>
+							Remove
+						</button>
+					</div>
+				{/each}
+			{/if}
 			
-			{#each experience_array as experience, i}
-				<div class="d-flex">
-					<Input
-						type="text"
-						name="experience"
-						id="experience"
-						bind:value={experience_array[i]}
-					/>
-					<button
-						class="btn btn-danger"
-						on:click={() => {
-							experience_array.splice(i, 1);
-							experience_array = experience_array;
-						}}
-					>
-						Remove
-					</button>
-				</div>
-			{/each}
 			<button
 				class="btn btn-primary"
 				on:click={() => {
@@ -115,7 +109,7 @@
 			</button>
 		</FormGroup>
 	</Form>
-	
+
 	<button
 		class="btn btn-primary"
 		on:click={() => {
@@ -124,7 +118,6 @@
 	>
 		Save
 	</button>
-
 </div>
 
 <!-- <form action="">
