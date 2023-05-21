@@ -11,7 +11,8 @@
 	</main>
 
 	<footer>
-		<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+		<!-- <p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p> -->
+		<p>visit <a href="https://github.com/orgs/NeighbourhoodHacks3/repositories" target="_blank">NeighbourhoodHacks3</a> to check out our code!</p>
 	</footer>
 </div>
 
