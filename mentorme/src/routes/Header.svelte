@@ -2,6 +2,29 @@
 	import { page } from '$app/stores';
 	import logo from '$lib/images/svelte-logo.svg';
 	import github from '$lib/images/github.svg';
+
+	import {
+		Collapse,
+		Navbar,
+		NavbarToggler,
+		NavbarBrand,
+		Nav,
+		NavItem,
+		NavLink,
+		Dropdown,
+		DropdownToggle,
+		DropdownMenu,
+		DropdownItem
+	} from 'sveltestrap';
+
+	let isOpen = false;
+
+	/**
+	 * @param {{ detail: { isOpen: boolean; }; }} event
+	 */
+	function handleUpdate(event) {
+		isOpen = event.detail.isOpen;
+	}
 </script>
 
 <header>
@@ -11,7 +34,31 @@
 		</a>
 	</div>
 
-	<nav>
+	<Navbar color="light" light expand="md">
+		<NavbarBrand href="/">sveltestrap</NavbarBrand>
+		<NavbarToggler on:click={() => (isOpen = !isOpen)} />
+		<Collapse {isOpen} navbar expand="md" on:update={handleUpdate}>
+		  <Nav class="ms-auto" navbar>
+			<NavItem>
+			  <NavLink href="#components/">Components</NavLink>
+			</NavItem>
+			<NavItem>
+			  <NavLink href="https://github.com/bestguy/sveltestrap">GitHub</NavLink>
+			</NavItem>
+			<Dropdown nav inNavbar>
+			  <DropdownToggle nav caret>Options</DropdownToggle>
+			  <DropdownMenu end>
+				<DropdownItem>Option 1</DropdownItem>
+				<DropdownItem>Option 2</DropdownItem>
+				<DropdownItem divider />
+				<DropdownItem>Reset</DropdownItem>
+			  </DropdownMenu>
+			</Dropdown>
+		  </Nav>
+		</Collapse>
+	  </Navbar>
+
+	<!-- <nav>
 		<svg viewBox="0 0 2 3" aria-hidden="true">
 			<path d="M0,0 L1,2 C1.5,3 1.5,3 2,3 L2,0 Z" />
 		</svg>
@@ -29,7 +76,7 @@
 		<svg viewBox="0 0 2 3" aria-hidden="true">
 			<path d="M0,0 L0,3 C0.5,3 0.5,3 1,2 L2,0 Z" />
 		</svg>
-	</nav>
+	</nav> -->
 
 	<div class="corner">
 		<a href="https://github.com/sveltejs/kit">
