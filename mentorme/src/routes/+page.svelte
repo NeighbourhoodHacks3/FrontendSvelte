@@ -18,6 +18,9 @@
 
 	<div style="margin: 30px;"></div>
 
+	<!-- can use this to implement searchbar
+	https://framework7.io/svelte/searchbar -->
+
 	<input style="height: 50px; font-size: 35px;" type="text" placeholder="Seach...">
 
 	<div style="margin: 30px;"></div>
@@ -36,8 +39,8 @@
 	</nav>
 </body>
 
+<!--
 <section>
-	<!--
 	<h1 style="font-style: italic; font-weight:bold">
 		<span class="welcome">
 			<picture>
@@ -71,8 +74,8 @@
 
 	<nav>
 		<a style="font-size: 20px;" href="/profile">create new user</a><br><br>
-	</nav>-->
-</section>
+	</nav>
+</section>-->
 
 <style>
 	section {
