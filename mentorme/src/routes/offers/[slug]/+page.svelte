@@ -100,9 +100,9 @@
 <div class="text-column">
 	<h1>Offer Post</h1>
 
-	<p>
+	<!-- <p>
 		Offer Post ID: {offerInfo._id}
-	</p>
+	</p> -->
 
 	<!-- Use data from the API call here -->
 	<div>
