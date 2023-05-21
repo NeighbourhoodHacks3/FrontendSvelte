@@ -6,4 +6,11 @@ import { writable } from 'svelte/store';
 //     userID: "6468ec339d23f8e8ae7ca59c",
 // };
 
-export const currentUser = writable(null);
+export const currentUser = writable(
+    {
+        name: null,
+        email: null,
+        userID: null,
+        password: null
+    }
+);
