@@ -1,13 +1,58 @@
-<svelte:head>
-	<title>Mentee's Requests</title>
-	<meta name="description" content="View Requests from Mentees" />
-</svelte:head>
+<script lang="ts">
+	import { login } from '$lib/api.js';
 
-<div class="text-column">
-	<h1>LOGOUT</h1>
+	let email = document.getElementById('email');
+	let password = document.getElementById('password');
+  
+	function enter() {
+	  if (email == null || password == null) {
+		alert('No such user details. Please re-enter details!')
+	  }
+	  else {
+		login(email.toString(), password.toString());
+	  }
+	}
 
-	<p>
-		Placeholder Mentee
-	</p>
+	function clearAll() {
+		email = null;
+		password = null;
+	}
+</script>
+  
+  <svelte:head>
+	  <title>Login</title>
+	  <meta name="description" content="View Requests from Mentees" />
+  </svelte:head>
+  
+  <div style="text-align: center;" class="text-column;" on:load={clearAll}>
+	  <h1>LOGIN</h1>
 
-</div>
+	  <div style="margin: 30px;"></div>
+  
+	  <!-- login stuffs -->
+	  <form action="/" method="post">
+		<div style="font-size: 25px;">
+		  <label for="email">Email</label>
+		  <input type="text" id="email" name="email" style="height: 35px; font-size: 22px;">
+		</div>
+	
+		<div style="margin: 10px;"></div>
+	
+		<div style="font-size: 25px;">
+		  <label for="password">Password</label>
+		  <input type="password" id="password" name="password" style="height: 35px; font-size: 22px;">
+		</div>
+
+		<div style="margin: 20px;"></div>
+  
+		<button class="btn btn-primary" on:click={enter}>Login</button>
+	  </form>
+  
+	  <div style="margin: 20px;"></div>
+  
+	  <nav>
+		<a style="font-size: 25px;" href="/signup">create new user</a><br><br>
+	  </nav>
+  
+  </div>
+  

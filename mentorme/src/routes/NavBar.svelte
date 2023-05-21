@@ -61,7 +61,7 @@
 						</DropdownItem>
 						<DropdownItem divider />
 						<DropdownItem>
-							<NavLink href="/login">Log Out</NavLink>
+							<NavLink href="/logout">Log Out</NavLink>
 						</DropdownItem>
 					</DropdownMenu>
 				</Dropdown>
